@@ -1,0 +1,17 @@
+{% if data.pagination.totalPages>1 %}
+	<div data-pagination-num="1">
+		<!-- pagination-container -->
+		<nav class="mt-4">
+			<ul class="pagination justify-content-end">
+				{% for link in data.pagination.pages.link %}
+					{% if link.active %}
+						<li class="bx-active page-item disabled"><span class="page-link">{{link.name}}</span></li>
+					{% else %}
+						<li class="page-item"><a class="page-link" href="{{link.url}}"><span>{{link.name}}</span></a></li>
+					{% endif %} 
+				{% endfor %}
+			</ul>
+		</nav>
+		<!-- pagination-container -->
+	</div> 
+{% endif %}  

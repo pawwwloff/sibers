@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block title %}
+	Main page
+{% endblock %}
+{% block main %}
+	<div class="container pt-5 pb-5">
+		<div class="alert alert-success" role="alert">For connect to database, you must enter the connection parameters ($DBHost, $DBLogin, $DBPassword, $DBName ) in /core/connectMysqli.php</div>
+		<div class="alert alert-success" role="alert">The default session lifetime is 3600 sec. You can change it in /core/user.php (static public $int = 3600)</div>
+		<div class="alert alert-success" role="alert">You can activated cache parameters in /core/twig.php ($params) </div>
+		<h2>Description</h2>
+		<div class="alert alert-success" role="alert">
+			At the opening page, request is parsed in /core/route.php, then include controller (/controllers/).<br> 
+			Base contoller (/controllers/controller.php), get parameters from the models (field of current user, twig, connect for database), then current controller uses an orm class (/core/sqlOrm.php) receives the necessary data and opens a view.<br>
+			For each controller set parameter $onlyAdmin, which determines access to the section;<br>  
+			<br> 
+			To add new pages, you do not need to create new controller, you can just add page index.html on (/views/) - <a href="/not-isset-controller">Simple</a>.
+		</div>
+		<h2>Structure</h2>
+		<div class="row">
+		  	<div class="col-4">
+		    	<div class="list-group" id="list-tab" role="tablist">
+		    		<h3>/controllers</h3>
+		      		<a class="list-group-item list-group-item-action active" id="controllers-controller-list" data-toggle="list" href="#controllers-controller" role="tab" aria-controls="controller">/controller.php</a>
+		      		<a class="list-group-item list-group-item-action" id="controllers-users-list" data-toggle="list" href="#controllers-users" role="tab" aria-controls="users">/users.php</a>
+		    		<h3>/core</h3>
+		    		<a class="list-group-item list-group-item-action" id="core-autodoader-list" data-toggle="list" href="#core-autodoader" role="tab" aria-controls="autodoader">/autodoader.php</a>
+		    		<a class="list-group-item list-group-item-action" id="core-connectMysqli-list" data-toggle="list" href="#core-connectMysqli" role="tab" aria-controls="connectMysqli">/connectMysqli.php</a>
+		    		<a class="list-group-item list-group-item-action" id="core-route-list" data-toggle="list" href="#core-route" role="tab" aria-controls="route">/route.php</a>
+		    		<a class="list-group-item list-group-item-action" id="core-sqlOrm-list" data-toggle="list" href="#core-sqlOrm" role="tab" aria-controls="sqlOrm">/sqlOrm.php</a>
+		    		<a class="list-group-item list-group-item-action" id="core-twig-list" data-toggle="list" href="#core-twig" role="tab" aria-controls="twig">/twig.php</a>
+		    		<a class="list-group-item list-group-item-action" id="core-user-list" data-toggle="list" href="#core-user" role="tab" aria-controls="user">/user.php</a>
+		    	</div>
+		  	</div>
+		  	<div class="col-8 pt-5">
+		    	<div class="tab-content" id="nav-tabContent">
+		      		<div class="tab-pane fade show active" id="controllers-controller" role="tabpanel" aria-labelledby="controllers-home-list">
+		      			<h4>Base class for controllers</h4></br>
+		      			<h5>metods:</h5></br>
+		      			protected static function setUser($user)</br>
+		      			protected function showView($page='index.html', $title='Home page', $data=[])</br>
+		      			public function action_index()</br></br>
+		      			<h5>properties:</h5></br>
+		      			protected static $twig;</br>
+						protected static $connect;</br>
+						protected static $user;</br>
+						protected static $err;</br>
+						protected static $successes;</br>
+						protected static $data;</br>
+		      		</div>
+		      		<div class="tab-pane fade" id="controllers-users" role="tabpanel" aria-labelledby="controllers-users-list">
+	      				<h4>Controller for users page</h4></br>
+		      		  	<h5>metods:</h5></br>
+					  	public function action_add()</br>
+						public function action_edit($id)</br>
+						public function action_delete($id)</br>
+						public function action_login()</br>
+						public function action_index()</br>
+						private function loginUser($user)</br></br>
+		    		</div>
+		    		<div class="tab-pane fade" id="core-autodoader" role="tabpanel" aria-labelledby="core-autodoader-list"><h4>Autoload classes</h4></div>
+		    		<div class="tab-pane fade" id="core-connectMysqli" role="tabpanel" aria-labelledby="core-connectMysqli-list">
+		    			<h4>Class for settings database</h4></br>
+		      		  	<h5>properties:</h5></br>
+		    			private $DBHost = "***";</br>
+						private $DBLogin = "***";</br>
+						private $DBPassword = "***";</br>
+						private $DBName = "***";</br>
+		    		</div>
+		    		<div class="tab-pane fade" id="core-route" role="tabpanel" aria-labelledby="core-route-list">
+						<h4>Route processing</h4></br>
+		      		  	<h5>metods:</h5></br>
+		    			static function start()</br>
+						public static function Error404()</br>
+					</div>
+		    		<div class="tab-pane fade" id="core-sqlOrm" role="tabpanel" aria-labelledby="core-sqlOrm-list">
+		    			<h4>Orm class</h4></br>
+		      		  	<h5>metods:</h5></br>
+		    			static function update($connect=false, $table=false, $id=0, $data)</br>
+						static function add($connect=false, $table=false, $data)</br>
+						static function delete($connect=false, $table=false, $id=0)</br>
+						static function getByField($connect=false, $table=false, $page=0, $field = '*', $data=array(), $limit=4)</br>
+						private function getPagination($connect, $table, $route, $page, $sql, $limit)</br>
+		    		</div>
+		    		<div class="tab-pane fade" id="core-twig" role="tabpanel" aria-labelledby="core-twig-list">
+		    			<h4>Class for easy calling render twig templates</h4></br>
+		      		  	<h5>metods:</h5></br>
+		    			public function renderTwig($page='index.html', $array)</br></br>
+		    			<h5>properties:</h5></br>
+		    			protected static $twig</br>
+						protected static $user</br>
+					</div>
+		    		<div class="tab-pane fade" id="core-user" role="tabpanel" aria-labelledby="core-autodoader-list">
+		    			<h4>Сlass for get current user</h4>
+		    			<h5>metods:</h5></br>
+		    			static public function setCookie($name, $value = '', $time=false)</br></br>
+		    			<h5>properties:</h5></br>
+		    			public $fields;</br>
+						static public $int = 3600;</br>
+		    		</div>
+		    	</div>
+		  	</div>
+		  	
+		</div>
+		<div class="row">
+			<div class="col-4">
+				<h3>/vendor</h3>
+			</div>
+			<div class="col-8">contains a twig</div>
+			<div class="col-4">
+		  		<h3>/views</h3>
+		  	</div>
+		  	<div class="col-8">contains views</div>
+			<div class="col-12">In the project were used: TWIG and Bootstrap.</div>
+		</div>
+	</div>
+{% endblock %}

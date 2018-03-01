@@ -1,0 +1,28 @@
+.error-template {padding: 40px 15px;text-align: center;}
+.error-actions {margin-top:15px;margin-bottom:15px;}
+.error-actions .btn { margin-right:10px; }
+.nav-item.dropdown:hover .dropdown-menu{
+	display: block;  
+}  
+.rotate_y {
+    -webkit-transform: rotate(-180deg);
+    transform: rotate(-180deg);
+}
+.d-svg {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.table figure {
+    margin: 0 1rem 0 1rem;
+}
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

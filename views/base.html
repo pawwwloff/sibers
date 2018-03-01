@@ -1,0 +1,77 @@
+<!-- /views/base.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html"; charset=utf-8" />
+    <title>
+    	{% block title %}
+			{{title}}	
+		{% endblock %}
+	</title>
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/main.js"></script>
+    <link href="/css/main.css" type="text/css" rel="stylesheet" />
+    <link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+    <link rel="shortcut icon" href="img/favicon.ico" />
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand">Menu</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Users
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+         	<a class="dropdown-item" href="/users">list</a>
+          <a class="dropdown-item" href="/users/add">Registration</a>
+        </div>
+      </li>
+    </ul>
+    <div class="my-2 my-lg-0">
+    	<ul class="navbar-nav mr-auto">
+	    	{% if curUser.authorize == false %}
+	    		<li class="nav-item active">
+	    			<a class="nav-link" href="/users/login">Login</a>
+	    		</li>
+	    	{% else %}
+	    		<li class="nav-item active"><a class="nav-link" href="/users/edit/{{curUser.ID}}">{{curUser.login}}</a></li>
+	    		<li class="nav-item"><a class="nav-link" href="/users/exit">Exit</a></li>
+	    	{% endif %}
+    	</ul>
+    </div>
+  </div>
+</nav>
+	<main class="h-100 w-100 d-flex flex-column flex-grow-1 flex-nowrap relative">
+		{% if errors or successes %}
+		<div class="container pt-5">
+			<div class="row">
+				<div class="col-12">
+					{% for success in successes %} 
+		            	<div class="alert alert-success" role="alert">{{success}}</div>
+		            {% endfor %}
+		        	{% for error in errors %} 
+		            	<div class="alert alert-danger" role="alert">{{error}}</div>
+		            {% endfor %}
+		        </div>
+			</div>
+		</div>
+		{% endif %}
+		{% block main %}
+		
+		{% endblock %}
+	</main>
+</body>
+</html>

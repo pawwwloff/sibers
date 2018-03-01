@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block main %}
+	<form method="post" id="sort-form">
+ 		<input type="hidden" name="sortBy" value="{{data.sort.by}}">
+     	<input type="hidden" name="sortDir" value="{{data.sort.link}}">
+ 	</form>
+	<div class="p-5">
+		<table class="table table-hover ">
+   			<thead>
+            	<tr>
+             		<th>
+             			<a class="table-sort" data-sort-by="ID" href="#"><span>ID</span>
+             				{% if data.sort.by=='ID'%} 
+                          		<span class="d-svg {% if data.sort.dir=='asc' %}rotate_y{% else %}{% endif %}"><svg class="tw-svg__asset tw-svg__asset--glypharrdown tw-svg__asset--inherit" width="16px" height="16px" version="1.1" viewBox="0 0 16 16" x="0px" y="0px"><path d="M3 5h10l-5 6"></path></svg>
+                          		</span>
+                         	{% endif %}
+                        </a>
+             		</th>
+                	<th><span>Name</span></th>
+                    <th class="text-right">
+                    	<a class="table-sort" data-sort-by="login" href="#"><span>Login</span>
+             				{% if data.sort.by=='login'%} 
+                          		<figure class="d-svg {% if data.sort.dir=='asc' %}rotate_y{% else %}{% endif %}"><svg class="tw-svg__asset tw-svg__asset--glypharrdown tw-svg__asset--inherit" width="16px" height="16px" version="1.1" viewBox="0 0 16 16" x="0px" y="0px"><path d="M3 5h10l-5 6"></path></svg>
+                          		</figure>
+                         	{% endif %}
+                        </a>
+                    </th>
+                    <th class="text-right">Birthday</th>
+                    <th class="text-right">Admin</th>
+                    <th class="text-right">Delete</th>
+                    
+       			</tr>
+ 			</thead>
+   			<tbody>
+   				{% for user in data.items %}
+					<tr>
+	    				<th scope="row">{{ user.ID}} </th>
+	   					<td>
+	        				<a href="/users/edit/{{user.ID}}"><span>{{ user.first_name}} {{ user.second_name}} {{ user.last_name}}</span></a>
+	    				</td>
+	    				<td class="text-right">{{ user.login}} </td>
+	    				<td class="text-right">{% if user.date_birthday!='0000-00-00'%}{{ user.date_birthday}}{% endif %}</td>
+	 					<td class="text-right">{{ user.admin}} </td>
+						<td class="text-center delete-item ">
+							<a href="/users/delete/{{user.ID}}">	
+						        <figure class="d-svg">
+						            <svg class="red svg__asset svg__asset--heart svg__asset--inherit" style="width: 16px; height: 16px;" viewBox="0 0 8 8">
+						                <path clip-rule="evenodd" d="M3 0c-.55 0-1 .45-1 1h-1c-.55 0-1 .45-1 1h7c0-.55-.45-1-1-1h-1c0-.55-.45-1-1-1h-1zm-2 3v4.813c0 .11.077.188.188.188h4.625c.11 0 .188-.077.188-.188v-4.813h-1v3.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5v-3.5h-1v3.5c0 .28-.22.5-.5.5s-.5-.22-.5-.5v-3.5h-1z" fill-rule="evenodd">
+						                </path>
+						            </svg>
+						        </figure>
+						     </a>
+	    				</td>
+					</tr>
+				{% endfor %}
+    		</tbody>
+ 		</table>    
+ 		{% include 'pagination.html' %}
+	</div>
+{% endblock %}
