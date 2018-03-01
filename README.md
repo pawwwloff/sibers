@@ -9,3 +9,5 @@
 Данные для авторизации под админом:<br>
 <code>login – admin</code><br>
 <code>password – 123123</code>
+
+Корень сервера (server_path), должен смотреть в public
